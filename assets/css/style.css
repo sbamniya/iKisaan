@@ -1,0 +1,20 @@
+.mar-top-10{
+	margin-top: 10px;
+}
+.error {
+    color: #f10c0c;
+}
+.app-preview {
+    height: 353px;
+    width: 100%;
+    background-color: #ccc;
+    margin: 1em 0;
+    overflow: hidden;
+}
+.user-image-container{
+	min-width: 100px;
+	min-height: 100px;
+}
+.app-preview{
+	background-size: cover;
+}
