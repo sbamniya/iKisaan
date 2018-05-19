@@ -21,7 +21,7 @@ class Category extends MY_Controller {
 
 		$this->data['siteName'] = $this->Mod_Common->getConfigValueByKey('SITE_NAME');
 		
-		$sql ="SELECT cm.category_name as catName, cm.cat_slug as catSlug, cm.category_enable as catStatus, c.category_name as parentCat from ik_category cm left join ik_category c on c.category_id=cm.parent_id order by cm.category_id desc";
+		$sql ="SELECT cm.category_name as catName, cm.category_id as catSlug, cm.category_enable as catStatus, c.category_name as parentCat from ik_category cm left join ik_category c on c.category_id=cm.parent_id order by cm.category_id desc";
 
 		$this->data['AllCategories'] = $this->Mod_Common->customQuery($sql);
 		$this->template->load('default', 'cat/all', $this->data);
@@ -93,7 +93,7 @@ class Category extends MY_Controller {
 		$catSlug = urldecode($catSlug);
 		
 		/*Update User Details*/
-		$this->Mod_Common->updateData('ik_category', array('cat_slug'=>$catSlug), array('category_enable'=>0));
+		$this->Mod_Common->updateData('ik_category', array('category_id'=>$catSlug), array('category_enable'=>0));
 
 		$this->session->set_flashdata('success_message', 'Category Inactive Successfully !');
 		redirect($_SERVER['HTTP_REFERER']);
@@ -111,7 +111,7 @@ class Category extends MY_Controller {
 		$catSlug = urldecode($catSlug);
 		
 		/*Update User Details*/
-		$this->Mod_Common->updateData('ik_category', array('cat_slug'=>$catSlug), array('category_enable'=>1));
+		$this->Mod_Common->updateData('ik_category', array('category_id'=>$catSlug), array('category_enable'=>1));
 
 		$this->session->set_flashdata('success_message', 'Category Activated Successfully !');
 		redirect($_SERVER['HTTP_REFERER']);
@@ -128,7 +128,7 @@ class Category extends MY_Controller {
 		/*Get User Name from URL*/
 		$catSlug = urldecode($catSlug);
 		
-		$cat = $this->Mod_Common->rowData('ik_category', array('cat_slug'=>$catSlug), 'category_id as catID, category_name as catName, cat_slug as catSlug, parent_id as parentID');
+		$cat = $this->Mod_Common->rowData('ik_category', array('category_id'=>$catSlug), 'category_id as catID, category_name as catName, category_id as catSlug, parent_id as parentID');
 		if (empty($cat)) {
 			redirect(ADMIN_URL.'categories','refresh');
 		}
@@ -138,7 +138,7 @@ class Category extends MY_Controller {
 
 		$this->data['cat'] = $cat;
 		$this->data['catSlug'] = $catSlug;
-		$this->data['AllCategories'] = $this->Mod_Common->selectData('ik_category', 'category_enable=1 and category_id !='.$cat->catID);
+		$this->data['AllCategories'] = $this->Mod_Common->selectData('ik_category', 'category_enable=1 and category_id !='.$cat->catID, 'category_id as catId, category_name as catName, category_id as catSlug, parent_id as parentID');
 		$this->data['activeTab'] = 'catagories';
 		$this->template->load('default', 'cat/edit', $this->data);
 	}
@@ -187,7 +187,7 @@ class Category extends MY_Controller {
 				);
 						
 			/*Insert data in database*/
-			$this->Mod_Common->updateData('ik_category', array('cat_slug'=>$catSlug), $catData);
+			$this->Mod_Common->updateData('ik_category', array('category_id'=>$catSlug), $catData);
 
 			$this->session->set_flashdata('success_message', 'Category Updated Successfully !');
 			redirect(ADMIN_URL.'categories');
