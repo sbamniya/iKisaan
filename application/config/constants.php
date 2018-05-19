@@ -87,4 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*Custom Defined Paths*/
 define('ADMIN_URL', '');//funny-app-admin/
 define('UPLOAD_PATH', './uploads'); // Upload Path
-define('SHOW_IMAGE_PATH', 'http://'.$_SERVER['HTTP_HOST'].'/sonu/ikisaan_admin/uploads/');
+define('SHOW_IMAGE_PATH', 'http://'.$_SERVER['HTTP_HOST'].'/ikisaan/uploads/');

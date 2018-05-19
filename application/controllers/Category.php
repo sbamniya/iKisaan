@@ -24,7 +24,6 @@ class Category extends MY_Controller {
 		$sql ="SELECT cm.category_name as catName, cm.cat_slug as catSlug, cm.category_enable as catStatus, c.category_name as parentCat from ik_category cm left join ik_category c on c.category_id=cm.parent_id order by cm.category_id desc";
 
 		$this->data['AllCategories'] = $this->Mod_Common->customQuery($sql);
-
 		$this->template->load('default', 'cat/all', $this->data);
 	}
 	/******************************
@@ -130,7 +129,7 @@ class Category extends MY_Controller {
 		$catSlug = urldecode($catSlug);
 		
 		$cat = $this->Mod_Common->rowData('ik_category', array('cat_slug'=>$catSlug), 'category_id as catID, category_name as catName, cat_slug as catSlug, parent_id as parentID');
-		if (!count($cat)) {
+		if (empty($cat)) {
 			redirect(ADMIN_URL.'categories','refresh');
 		}
 

@@ -69,7 +69,8 @@
                                         <td><?php echo $key+1; ?></td>
                                         <?php
                                             if ($post->ad_images!='' && $post->ad_images!=null) {
-                                                $imgPath = explode(',', $post->ad_images)[0];
+                                                $imgPath = SHOW_IMAGE_PATH;
+                                                $imgPath .= explode(',', $post->ad_images)[0];
                                             }else{
                                                 $imgPath = SHOW_IMAGE_PATH.'default-thumbnail.jpg';
                                             }
